@@ -130,10 +130,10 @@ public:
         vSeeds.emplace_back("dnsseed.pricecoinxpool.org", true);
         vSeeds.emplace_back("dnsseed.koin-project.com", false);
 
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,48);
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,55);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
         base58Prefixes[SCRIPT_ADDRESS2] = std::vector<unsigned char>(1,50);
-        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,176);
+        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,183);
         base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x88, 0xB2, 0x1E};
         base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x88, 0xAD, 0xE4};
 
@@ -213,10 +213,10 @@ public:
         // By default assume that the signatures in ancestors of this block are valid.
         consensus.defaultAssumeValid = uint256S("0xa0afbded94d4be233e191525dc2d467af5c7eab3143c852c3cd549831022aad6"); //343833
 
-        pchMessageStart[0] = 0xfd;
-        pchMessageStart[1] = 0xd2;
-        pchMessageStart[2] = 0xc8;
-        pchMessageStart[3] = 0xf1;
+        pchMessageStart[0] = 0xhd;
+        pchMessageStart[1] = 0xp6;
+        pchMessageStart[2] = 0xh7;
+        pchMessageStart[3] = 0xg2;
         nDefaultPort = 19335;
         nPruneAfterHeight = 1000;
 
