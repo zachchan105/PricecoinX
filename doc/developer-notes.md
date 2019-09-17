@@ -207,7 +207,7 @@ Threads
 
 - ThreadFlushWalletDB : Close the wallet.dat file if it hasn't been used in 500ms.
 
-- ThreadRPCServer : Remote procedure call handler, listens on port 9332 for connections and services them.
+- ThreadRPCServer : Remote procedure call handler, listens on port 2332 for connections and services them.
 
 - BitcoinMiner : Generates pricecoinxs (if wallet is enabled).
 
