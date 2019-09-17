@@ -42,11 +42,11 @@ reachable from the Tor network. Add these lines to your /etc/tor/torrc (or equiv
 config file):
 
 	HiddenServiceDir /var/lib/tor/pricecoinx-service/
-	HiddenServicePort 9333 127.0.0.1:9333
+	HiddenServicePort 2333 127.0.0.1:2333
 	HiddenServicePort 19335 127.0.0.1:19335
 
 The directory can be different of course, but (both) port numbers should be equal to
-your pricecoinxd's P2P listen port (9333 by default).
+your pricecoinxd's P2P listen port (2333 by default).
 
 	-externalip=X   You can tell pricecoinx about its publicly reachable address using
 	                this option, and this can be a .onion address. Given the above
@@ -81,7 +81,7 @@ as well, use `discover` instead:
 
 	./pricecoinxd ... -discover
 
-and open port 9333 on your firewall (or use -upnp).
+and open port 2333 on your firewall (or use -upnp).
 
 If you only want to use Tor to reach onion addresses, but not use it as a proxy
 for normal IPv4/IPv6 communication, use:
