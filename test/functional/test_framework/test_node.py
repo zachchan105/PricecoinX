@@ -45,7 +45,7 @@ class TestNode():
             # Wait for up to 60 seconds for the RPC server to respond
             self.rpc_timeout = 60
         if binary is None:
-            self.binary = os.getenv("LITECOIND", "pricecoinxd")
+            self.binary = os.getenv("PRICECOINXD", "pricecoinxd")
         else:
             self.binary = binary
         self.stderr = stderr
@@ -54,7 +54,7 @@ class TestNode():
         self.extra_args = extra_args
         self.args = [self.binary, "-datadir=" + self.datadir, "-server", "-keypool=1", "-discover=0", "-rest", "-logtimemicros", "-debug", "-debugexclude=libevent", "-debugexclude=leveldb", "-mocktime=" + str(mocktime), "-uacomment=testnode%d" % i]
 
-        self.cli = TestNodeCLI(os.getenv("LITECOINCLI", "pricecoinx-cli"), self.datadir)
+        self.cli = TestNodeCLI(os.getenv("PRICECOINXCLI", "pricecoinx-cli"), self.datadir)
 
         self.running = False
         self.process = None

@@ -1,4 +1,4 @@
-TOR SUPPORT IN LITECOIN
+TOR SUPPORT IN PRICECOINX
 ======================
 
 It is possible to run PricecoinX as a Tor hidden service, and connect to such services.
