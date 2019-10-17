@@ -82,7 +82,7 @@ public:
         consensus.BIP66Height = 100;
         consensus.powLimit = uint256S("00000fffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"); 
         consensus.nPowTargetTimespan = 60 * 60; // 1 day - to be changed after DWG
-        consensus.nPowTargetSpacing = 20; //20 seconds
+        consensus.nPowTargetSpacing = 30; //30 seconds
         consensus.fPowAllowMinDifficultyBlocks = false;
         consensus.fPowNoRetargeting = false;
         consensus.nRuleChangeActivationThreshold = 6048; // 75% of 8064
