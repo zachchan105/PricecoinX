@@ -3,7 +3,7 @@ PricecoinX Core integration/staging tree
 
 [![Build Status](https://travis-ci.org/pricecoinx-project/pricecoinx.svg?branch=master)](https://travis-ci.org/pricecoinx-project/pricecoinx)
 
-https://pricecoinx.org
+https://pricecoincrypto.com
 
 What is PricecoinX?
 ----------------

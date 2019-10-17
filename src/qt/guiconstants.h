@@ -49,7 +49,7 @@ static const int MAX_URI_LENGTH = 255;
 #define SPINNER_FRAMES 36
 
 #define QAPP_ORG_NAME "PricecoinX"
-#define QAPP_ORG_DOMAIN "pricecoinx.org"
+#define QAPP_ORG_DOMAIN "pricecoincrypto.com"
 #define QAPP_APP_NAME_DEFAULT "PricecoinX-Qt"
 #define QAPP_APP_NAME_TESTNET "PricecoinX-Qt-testnet"
 

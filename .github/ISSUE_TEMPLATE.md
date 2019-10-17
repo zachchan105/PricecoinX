@@ -4,7 +4,7 @@ This issue tracker is only for technical issues related to pricecoinx-core.
 
 General pricecoinx questions and/or support requests and are best directed to the [pricecoinxtalk.io forums](https://pricecoinxtalk.io/).
 
-For reporting security issues, please contact the PricecoinX developers on the #pricecoinx-dev Freenode IRC channel or alternatively you can email us at contact@pricecoinx.org.
+For reporting security issues, please contact the PricecoinX developers on the #pricecoinx-dev Freenode IRC channel or alternatively you can email us at contact@pricecoincrypto.com.
 
 ### Describe the issue
 
