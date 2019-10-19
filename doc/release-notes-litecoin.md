@@ -7,7 +7,7 @@ performance improvements, as well as updated translations.
 
 Please report bugs using the issue tracker at GitHub:
 
-  <https://github.com/pricecoinx-project/pricecoinx/issues>
+  <https://github.com/ZachChan105/pricecoinx/issues>
 
 To receive security and update notifications, please subscribe to:
 

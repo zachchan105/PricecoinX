@@ -8,7 +8,7 @@ recommended to upgrade to this version as soon as possible.
 
 Please report bugs using the issue tracker at github:
 
-  <https://github.com/pricecoinx-project/pricecoinx/issues>
+  <https://github.com/ZachChan105/pricecoinx/issues>
 
 Upgrading and downgrading
 =========================

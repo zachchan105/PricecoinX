@@ -7,7 +7,7 @@ It is recommended to upgrade to this version.
 
 Please report bugs using the issue tracker at github:
 
-  <https://github.com/pricecoinx-project/pricecoinx/issues>
+  <https://github.com/ZachChan105/pricecoinx/issues>
 
 Compatibility
 ==============

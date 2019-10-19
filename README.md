@@ -1,7 +1,7 @@
 PricecoinX Core integration/staging tree
 =====================================
 
-[![Build Status](https://travis-ci.org/pricecoinx-project/pricecoinx.svg?branch=master)](https://travis-ci.org/pricecoinx-project/pricecoinx)
+[![Build Status](https://travis-ci.org/ZachChan105/pricecoinx.svg?branch=master)](https://travis-ci.org/ZachChan105/pricecoinx)
 
 https://pricecoincrypto.com
 
@@ -27,7 +27,7 @@ Development Process
 -------------------
 
 The `master` branch is regularly built and tested, but is not guaranteed to be
-completely stable. [Tags](https://github.com/pricecoinx-project/pricecoinx/tags) are created
+completely stable. [Tags](https://github.com/ZachChan105/pricecoinx/tags) are created
 regularly to indicate new official, stable release versions of PricecoinX Core.
 
 The contribution workflow is described in [CONTRIBUTING.md](CONTRIBUTING.md).

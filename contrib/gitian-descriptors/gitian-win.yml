@@ -22,7 +22,7 @@ packages:
 - "ca-certificates"
 - "python"
 remotes:
-- "url": "https://github.com/pricecoinx-project/pricecoinx.git"
+- "url": "https://github.com/ZachChan105/pricecoinx.git"
   "dir": "pricecoinx"
 files: []
 script: |

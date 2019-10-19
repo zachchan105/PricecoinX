@@ -531,7 +531,7 @@ std::string HelpMessage(HelpMessageMode mode)
 
 std::string LicenseInfo()
 {
-    const std::string URL_SOURCE_CODE = "<https://github.com/pricecoinx-project/pricecoinx>";
+    const std::string URL_SOURCE_CODE = "<https://github.com/ZachChan105/pricecoinx>";
     const std::string URL_WEBSITE = "<https://pricecoincrypto.com>";
 
     return CopyrightHolders(strprintf(_("Copyright (C) %i-%i"), 2011, COPYRIGHT_YEAR) + " ") + "\n" +

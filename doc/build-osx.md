@@ -33,7 +33,7 @@ Build PricecoinX Core
 
 1. Clone the pricecoinx source code and cd into `pricecoinx`
 
-        git clone https://github.com/pricecoinx-project/pricecoinx
+        git clone https://github.com/ZachChan105/pricecoinx
         cd pricecoinx
 
 2.  Build pricecoinx-core:
