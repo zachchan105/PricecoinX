@@ -5,6 +5,8 @@ PricecoinX Core integration/staging tree
 
 https://pricecoincrypto.com
 
+Discord: https://discord.gg/FZhvJAW
+
 What is PricecoinX?
 ----------------
 
