@@ -8,7 +8,7 @@
 #include <hash.h>
 #include <tinyformat.h>
 #include <utilstrencodings.h>
-#include <crypto/allium/allium.h"
+#include <crypto/allium/allium.h>
 #include <crypto/common.h>
 #include <crypto/scrypt.h>
 
