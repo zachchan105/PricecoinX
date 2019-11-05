@@ -44,6 +44,12 @@ src/qt/forms/ui_*.h
 
 src/qt/test/moc*.cpp
 
+src/qt/bitcoin-qt.config
+src/qt/bitcoin-qt.creator
+src/qt/bitcoin-qt.creator.user
+src/qt/bitcoin-qt.files
+src/qt/bitcoin-qt.includes
+
 .deps
 .dirstamp
 .libs
@@ -75,7 +81,8 @@ src/qt/test/moc*.cpp
 *.qm
 Makefile
 pricecoinx-qt
-PricecoinX-Qt.app
+pricecoinx-Qt.app
+background.tiff*
 
 # Unit-tests
 Makefile.test
@@ -83,7 +90,6 @@ pricecoinx-qt_test
 
 # Resources cpp
 qrc_*.cpp
-
 # Mac specific
 .DS_Store
 build
