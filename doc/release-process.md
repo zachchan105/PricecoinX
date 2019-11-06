@@ -13,7 +13,7 @@ Before every minor and major release:
 * Update version in `configure.ac` (don't forget to set `CLIENT_VERSION_IS_RELEASE` to `true`)
 * Write release notes (see below)
 * Update `src/chainparams.cpp` nMinimumChainWork with information from the getblockchaininfo rpc.
-* Update `src/chainparams.cpp` defaultAssumeValid  with information from the getblockhash rpc.
+* Update `src/chainparams.cpp` defaultAssumeValid with information from the getblockhash rpc.
   - The selected value must not be orphaned so it may be useful to set the value two blocks back from the tip.
   - Testnet should be set some tens of thousands back from the tip due to reorgs there.
   - This update should be reviewed with a reindex-chainstate with assumevalid=0 to catch any defect
@@ -23,12 +23,13 @@ Before every major release:
 
 * Update hardcoded [seeds](/contrib/seeds/README.md), see [this pull request](https://github.com/bitcoin/bitcoin/pull/7415) for an example.
 * Update [`BLOCK_CHAIN_SIZE`](/src/qt/intro.cpp) to the current size plus some overhead.
-* Update `src/chainparams.cpp` chainTxData with statistics about the transaction count and rate.
+* Update `src/chainparams.cpp` chainTxData with statistics about the transaction count and rate. Use the output of the RPC `getchaintxstats`, see
+  [this pull request](https://github.com/bitcoin/bitcoin/pull/12270) for an example. Reviewers can verify the results by running `getchaintxstats <window_block_count> <window_last_block_hash>` with the `window_block_count` and `window_last_block_hash` from your output.
 * Update version of `contrib/gitian-descriptors/*.yml`: usually one'd want to do this on master after branching off the release - but be sure to at least do it before a new major release
 
 ### First time / New builders
 
-If you're using the automated script (found in [contrib/gitian-build.sh](/contrib/gitian-build.sh)), then at this point you should run it with the "--setup" command. Otherwise ignore this.
+If you're using the automated script (found in [contrib/gitian-build.py](/contrib/gitian-build.py)), then at this point you should run it with the "--setup" command. Otherwise ignore this.
 
 Check out the source code in the following directory hierarchy.
 
@@ -49,7 +50,7 @@ and sort them into categories based on labels)
 
 Generate list of authors:
 
-    git log --format='%aN' "$*" | sort -ui | sed -e 's/^/- /'
+    git log --format='- %aN' v(current version, e.g. 0.16.0)..v(new version, e.g. 0.16.1) | sort -fiu
 
 Tag version (or release candidate) in git
 
@@ -57,12 +58,12 @@ Tag version (or release candidate) in git
 
 ### Setup and perform Gitian builds
 
-If you're using the automated script (found in [contrib/gitian-build.sh](/contrib/gitian-build.sh)), then at this point you should run it with the "--build" command. Otherwise ignore this.
+If you're using the automated script (found in [contrib/gitian-build.py](/contrib/gitian-build.py)), then at this point you should run it with the "--build" command. Otherwise ignore this.
 
 Setup Gitian descriptors:
 
     pushd ./pricecoinx
-    export SIGNER=(your Gitian key, ie bluematt, sipa, etc)
+    export SIGNER="(your Gitian key, ie bluematt, sipa, etc)"
     export VERSION=(new version, e.g. 0.8.0)
     git fetch
     git checkout v${VERSION}
@@ -88,11 +89,13 @@ Ensure gitian-builder is up-to-date:
     wget -P inputs http://downloads.sourceforge.net/project/osslsigncode/osslsigncode/osslsigncode-1.7.1.tar.gz
     popd
 
-Create the OS X SDK tarball, see the [OS X readme](README_osx.md) for details, and copy it into the inputs directory.
+Create the macOS SDK tarball, see the [macOS readme](README_osx.md) for details, and copy it into the inputs directory.
 
 ### Optional: Seed the Gitian sources cache and offline git repositories
 
-By default, Gitian will fetch source files as needed. To cache them ahead of time:
+NOTE: Gitian is sometimes unable to download files. If you have errors, try the step below.
+
+By default, Gitian will fetch source files as needed. To cache them ahead of time, make sure you have checked out the tag you want to build in pricecoinx, then:
 
     pushd ./gitian-builder
     make -C ../pricecoinx/depends download SOURCES_PATH=`pwd`/cache/common
@@ -108,20 +111,23 @@ NOTE: Offline builds must use the --url flag to ensure Gitian fetches only from 
 
 The gbuild invocations below <b>DO NOT DO THIS</b> by default.
 
-### Build and sign PricecoinX Core for Linux, Windows, and OS X:
+### Build and sign PricecoinX Core for Linux, Windows, and macOS:
 
+    export GITIAN_THREADS=2
+    export GITIAN_MEMORY=3000
+    
     pushd ./gitian-builder
-    ./bin/gbuild --num-make 2 --memory 3000 --commit pricecoinx=v${VERSION} ../pricecoinx/contrib/gitian-descriptors/gitian-linux.yml
-    ./bin/gsign --signer $SIGNER --release ${VERSION}-linux --destination ../gitian.sigs.ltc/ ../pricecoinx/contrib/gitian-descriptors/gitian-linux.yml
+    ./bin/gbuild --num-make $GITIAN_THREADS --memory $GITIAN_MEMORY --commit pricecoinx=v${VERSION} ../pricecoinx/contrib/gitian-descriptors/gitian-linux.yml
+    ./bin/gsign --signer "$SIGNER" --release ${VERSION}-linux --destination ../gitian.sigs.ltc/ ../pricecoinx/contrib/gitian-descriptors/gitian-linux.yml
     mv build/out/pricecoinx-*.tar.gz build/out/src/pricecoinx-*.tar.gz ../
 
-    ./bin/gbuild --num-make 2 --memory 3000 --commit pricecoinx=v${VERSION} ../pricecoinx/contrib/gitian-descriptors/gitian-win.yml
-    ./bin/gsign --signer $SIGNER --release ${VERSION}-win-unsigned --destination ../gitian.sigs.ltc/ ../pricecoinx/contrib/gitian-descriptors/gitian-win.yml
+    ./bin/gbuild --num-make $GITIAN_THREADS --memory $GITIAN_MEMORY --commit pricecoinx=v${VERSION} ../pricecoinx/contrib/gitian-descriptors/gitian-win.yml
+    ./bin/gsign --signer "$SIGNER" --release ${VERSION}-win-unsigned --destination ../gitian.sigs.ltc/ ../pricecoinx/contrib/gitian-descriptors/gitian-win.yml
     mv build/out/pricecoinx-*-win-unsigned.tar.gz inputs/pricecoinx-win-unsigned.tar.gz
     mv build/out/pricecoinx-*.zip build/out/pricecoinx-*.exe ../
 
-    ./bin/gbuild --num-make 2 --memory 3000 --commit pricecoinx=v${VERSION} ../pricecoinx/contrib/gitian-descriptors/gitian-osx.yml
-    ./bin/gsign --signer $SIGNER --release ${VERSION}-osx-unsigned --destination ../gitian.sigs.ltc/ ../pricecoinx/contrib/gitian-descriptors/gitian-osx.yml
+    ./bin/gbuild --num-make $GITIAN_THREADS --memory $GITIAN_MEMORY --commit pricecoinx=v${VERSION} ../pricecoinx/contrib/gitian-descriptors/gitian-osx.yml
+    ./bin/gsign --signer "$SIGNER" --release ${VERSION}-osx-unsigned --destination ../gitian.sigs.ltc/ ../pricecoinx/contrib/gitian-descriptors/gitian-osx.yml
     mv build/out/pricecoinx-*-osx-unsigned.tar.gz inputs/pricecoinx-osx-unsigned.tar.gz
     mv build/out/pricecoinx-*.tar.gz build/out/pricecoinx-*.dmg ../
     popd
@@ -131,15 +137,12 @@ Build output expected:
   1. source tarball (`pricecoinx-${VERSION}.tar.gz`)
   2. linux 32-bit and 64-bit dist tarballs (`pricecoinx-${VERSION}-linux[32|64].tar.gz`)
   3. windows 32-bit and 64-bit unsigned installers and dist zips (`pricecoinx-${VERSION}-win[32|64]-setup-unsigned.exe`, `pricecoinx-${VERSION}-win[32|64].zip`)
-  4. OS X unsigned installer and dist tarball (`pricecoinx-${VERSION}-osx-unsigned.dmg`, `pricecoinx-${VERSION}-osx64.tar.gz`)
+  4. macOS unsigned installer and dist tarball (`pricecoinx-${VERSION}-osx-unsigned.dmg`, `pricecoinx-${VERSION}-osx64.tar.gz`)
   5. Gitian signatures (in `gitian.sigs.ltc/${VERSION}-<linux|{win,osx}-unsigned>/(your Gitian key)/`)
 
 ### Verify other gitian builders signatures to your own. (Optional)
 
-Add other gitian builders keys to your gpg keyring, and/or refresh keys.
-
-    gpg --import pricecoinx/contrib/gitian-keys/*.pgp
-    gpg --refresh-keys
+Add other gitian builders keys to your gpg keyring, and/or refresh keys: See `../pricecoinx/contrib/gitian-keys/README.md`.
 
 Verify the signatures
 
@@ -154,20 +157,20 @@ Verify the signatures
 Commit your signature to gitian.sigs.ltc:
 
     pushd gitian.sigs.ltc
-    git add ${VERSION}-linux/${SIGNER}
-    git add ${VERSION}-win-unsigned/${SIGNER}
-    git add ${VERSION}-osx-unsigned/${SIGNER}
-    git commit -a
-    git push  # Assuming you can push to the gitian.sigs.ltc tree
+    git add ${VERSION}-linux/"${SIGNER}"
+    git add ${VERSION}-win-unsigned/"${SIGNER}"
+    git add ${VERSION}-osx-unsigned/"${SIGNER}"
+    git commit -m "Add ${VERSION} unsigned sigs for ${SIGNER}"
+    git push  # Assuming you can push to the gitian.sigs tree
     popd
 
-Codesigner only: Create Windows/OS X detached signatures:
+Codesigner only: Create Windows/macOS detached signatures:
 - Only one person handles codesigning. Everyone else should skip to the next step.
-- Only once the Windows/OS X builds each have 3 matching signatures may they be signed with their respective release keys.
+- Only once the Windows/macOS builds each have 3 matching signatures may they be signed with their respective release keys.
 
-Codesigner only: Sign the osx binary:
+Codesigner only: Sign the macOS binary:
 
-    transfer pricecoinx-osx-unsigned.tar.gz to osx for signing
+    transfer pricecoinx-osx-unsigned.tar.gz to macOS for signing
     tar xf pricecoinx-osx-unsigned.tar.gz
     ./detached-sig-create.sh -s "Key ID"
     Enter the keychain password and authorize the signature
@@ -192,16 +195,16 @@ Codesigner only: Commit the detached codesign payloads:
     git tag -s v${VERSION} HEAD
     git push the current branch and new tag
 
-Non-codesigners: wait for Windows/OS X detached signatures:
+Non-codesigners: wait for Windows/macOS detached signatures:
 
-- Once the Windows/OS X builds each have 3 matching signatures, they will be signed with their respective release keys.
+- Once the Windows/macOS builds each have 3 matching signatures, they will be signed with their respective release keys.
 - Detached signatures will then be committed to the [pricecoinx-detached-sigs](https://github.com/ZachChan105/pricecoinx-detached-sigs) repository, which can be combined with the unsigned apps to create signed binaries.
 
-Create (and optionally verify) the signed OS X binary:
+Create (and optionally verify) the signed macOS binary:
 
     pushd ./gitian-builder
     ./bin/gbuild -i --commit signature=v${VERSION} ../pricecoinx/contrib/gitian-descriptors/gitian-osx-signer.yml
-    ./bin/gsign --signer $SIGNER --release ${VERSION}-osx-signed --destination ../gitian.sigs.ltc/ ../pricecoinx/contrib/gitian-descriptors/gitian-osx-signer.yml
+    ./bin/gsign --signer "$SIGNER" --release ${VERSION}-osx-signed --destination ../gitian.sigs.ltc/ ../pricecoinx/contrib/gitian-descriptors/gitian-osx-signer.yml
     ./bin/gverify -v -d ../gitian.sigs.ltc/ -r ${VERSION}-osx-signed ../pricecoinx/contrib/gitian-descriptors/gitian-osx-signer.yml
     mv build/out/pricecoinx-osx-signed.dmg ../pricecoinx-${VERSION}-osx.dmg
     popd
@@ -210,17 +213,17 @@ Create (and optionally verify) the signed Windows binaries:
 
     pushd ./gitian-builder
     ./bin/gbuild -i --commit signature=v${VERSION} ../pricecoinx/contrib/gitian-descriptors/gitian-win-signer.yml
-    ./bin/gsign --signer $SIGNER --release ${VERSION}-win-signed --destination ../gitian.sigs.ltc/ ../pricecoinx/contrib/gitian-descriptors/gitian-win-signer.yml
+    ./bin/gsign --signer "$SIGNER" --release ${VERSION}-win-signed --destination ../gitian.sigs.ltc/ ../pricecoinx/contrib/gitian-descriptors/gitian-win-signer.yml
     ./bin/gverify -v -d ../gitian.sigs.ltc/ -r ${VERSION}-win-signed ../pricecoinx/contrib/gitian-descriptors/gitian-win-signer.yml
     mv build/out/pricecoinx-*win64-setup.exe ../pricecoinx-${VERSION}-win64-setup.exe
     mv build/out/pricecoinx-*win32-setup.exe ../pricecoinx-${VERSION}-win32-setup.exe
     popd
 
-Commit your signature for the signed OS X/Windows binaries:
+Commit your signature for the signed macOS/Windows binaries:
 
     pushd gitian.sigs.ltc
-    git add ${VERSION}-osx-signed/${SIGNER}
-    git add ${VERSION}-win-signed/${SIGNER}
+    git add ${VERSION}-osx-signed/"${SIGNER}"
+    git add ${VERSION}-win-signed/"${SIGNER}"
     git commit -a
     git push  # Assuming you can push to the gitian.sigs.ltc tree
     popd
@@ -264,7 +267,6 @@ Note: check that SHA256SUMS itself doesn't end up in SHA256SUMS, which is a spur
 - Upload zips and installers, as well as `SHA256SUMS.asc` from last step, to the pricecoincrypto.com server.
 
 ```
-
 - Update pricecoincrypto.com version
 
 - Announce the release:
