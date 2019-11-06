@@ -1,16 +1,13 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-export LC_ALL=C
 TOPDIR=${TOPDIR:-$(git rev-parse --show-toplevel)}
-BUILDDIR=${BUILDDIR:-$TOPDIR}
-
-BINDIR=${BINDIR:-$BUILDDIR/src}
+SRCDIR=${SRCDIR:-$TOPDIR/src}
 MANDIR=${MANDIR:-$TOPDIR/doc/man}
 
-PRICECOINXD=${BITCOIND:-$BINDIR/pricecoinxd}
-PRICECOINXCLI=${BITCOINCLI:-$BINDIR/pricecoinx-cli}
-PRICECOINXTX=${BITCOINTX:-$BINDIR/pricecoinx-tx}
-PRICECOINXQT=${BITCOINQT:-$BINDIR/qt/pricecoinx-qt}
+PRICECOINXD=${PRICECOINXD:-$SRCDIR/pricecoinxd}
+PRICECOINXCLI=${PRICECOINXCLI:-$SRCDIR/pricecoinx-cli}
+PRICECOINXTX=${PRICECOINXTX:-$SRCDIR/pricecoinx-tx}
+PRICECOINXQT=${PRICECOINXQT:-$SRCDIR/qt/pricecoinx-qt}
 
 [ ! -x $PRICECOINXD ] && echo "$PRICECOINXD not found or not executable." && exit 1
 

@@ -1,13 +1,13 @@
-// Copyright (c) 2015-2018 The Bitcoin Core developers
+// Copyright (c) 2015 The Bitcoin Core developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <chain.h>
-#include <chainparams.h>
-#include <pow.h>
-#include <random.h>
-#include <util.h>
-#include <test/test_bitcoin.h>
+#include "chain.h"
+#include "chainparams.h"
+#include "pow.h"
+#include "random.h"
+#include "util.h"
+#include "test/test_bitcoin.h"
 
 #include <boost/test/unit_test.hpp>
 
@@ -21,7 +21,7 @@ BOOST_AUTO_TEST_CASE(get_next_work)
     CBlockIndex pindexLast;
     pindexLast.nHeight = 280223;
     pindexLast.nTime = 1358378777;  // Block #280223
-    pindexLast.nBits = 0x1c0ac141;
+    pindexLast.nBits =  0x1c0ac141;
 }
 
 /* Test the constraint on the upper bound for next work */
