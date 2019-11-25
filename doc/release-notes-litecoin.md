@@ -145,7 +145,7 @@ When an address is paid multiple times the coins from those separate payments ca
 Fee policy changes
 ------------------
 
-The default minimum transaction fee `-mintxfee` has been lowered to 0.0001 PCX/kB after relaxing the minimum relay and dust relay fee rates in prior releases. 
+The default minimum transaction fee `-mintxfee` has been lowered to 0.0001 PRCX/kB after relaxing the minimum relay and dust relay fee rates in prior releases. 
 
 Configuration sections for testnet and regtest
 ----------------------------------------------
@@ -312,7 +312,7 @@ Low-level RPC changes
   `getrawtransaction` RPC commands.
 - New `fees` field introduced in `getrawmempool`, `getmempoolancestors`, `getmempooldescendants` and
    `getmempoolentry` when verbosity is set to `true` with sub-fields `ancestor`, `base`, `modified`
-   and `descendant` denominated in PCX. This new field deprecates previous fee fields, such as
+   and `descendant` denominated in PRCX. This new field deprecates previous fee fields, such as
    `fee`, `modifiedfee`, `ancestorfee` and `descendantfee`.
 - The new RPC `getzmqnotifications` returns information about active ZMQ
   notifications.
