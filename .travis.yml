@@ -22,6 +22,7 @@ env:
   - PYTHON_DEBUG=1
   - WINEDEBUG=fixme-all
   - PRICECOINX_SCRYPT=0
+  - CFLAGS=-fPIC
   matrix:
   - HOST=arm-linux-gnueabihf PACKAGES="g++-arm-linux-gnueabihf" DEP_OPTS="NO_QT=1"
     CHECK_DOC=0 GOAL="install" BITCOIN_CONFIG="--enable-glibc-back-compat --enable-reduce-exports"
