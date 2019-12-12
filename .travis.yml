@@ -22,7 +22,6 @@ env:
   - PYTHON_DEBUG=1
   - WINEDEBUG=fixme-all
   - PRICECOINX_SCRYPT=0
-  - CFLAGS=-fPIC
   matrix:
   - HOST=arm-linux-gnueabihf PACKAGES="g++-arm-linux-gnueabihf" DEP_OPTS="NO_QT=1"
     CHECK_DOC=0 GOAL="install" BITCOIN_CONFIG="--enable-glibc-back-compat --enable-reduce-exports"
@@ -90,7 +89,7 @@ script:
 - "../configure --cache-file=config.cache $BITCOIN_CONFIG_ALL $BITCOIN_CONFIG || (
   cat config.log && false)"
 - make distdir VERSION=$HOST
-- cd garlicoin-$HOST
+- cd pricecoinx-$HOST
 - "./configure --cache-file=../config.cache $BITCOIN_CONFIG_ALL $BITCOIN_CONFIG ||
   ( cat config.log && false)"
 - make $MAKEJOBS $GOAL || ( echo "Build failure. Verbose build follows." && make $GOAL
