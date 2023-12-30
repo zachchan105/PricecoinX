@@ -1,6 +1,7 @@
 PricecoinX Core Repo has moved!!!!
 =====================================
 
+https://github.com/Pricecoin/PricecoinX
 
 https://pricecoincrypto.com
 
@@ -42,5 +43,7 @@ Thank you for your support!!
 
 Special Thanks
 ------------
-https://github.com/barrystyle
-https://github.com/ahmedbodi
+
+Barrystyle - https://github.com/barrystyle
+
+Ahmedbodi - https://github.com/ahmedbodi
